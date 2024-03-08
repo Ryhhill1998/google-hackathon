@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import "./App.scss";
 
 const App = () => {
   const [file, setFile] = useState(null);
