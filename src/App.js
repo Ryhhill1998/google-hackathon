@@ -1,12 +1,75 @@
 import { useEffect, useState } from "react";
 import "./App.scss";
 
+const defaultData = {
+  file: null,
+  prompt: "",
+  literacy: "default",
+  sentiment: "default",
+  length: "default",
+  brand: "default",
+};
+
 const App = () => {
-  const [file, setFile] = useState(null);
+  const [data, setData] = useState({ ...defaultData });
+  const [activeSide, setActiveSide] = useState("lhs");
+
+  const fetchResponse = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/backend", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const responseData = await response.json();
+      console.log(responseData);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleReset = () => {
+    setData({ ...defaultData });
+  };
 
   const uploadFile = (files) => {
     if (files.length) {
-      setFile(files[0]);
+      setData((data) => {
+        const updatedData = { ...data };
+        updatedData.file = files[0];
+        return updatedData;
+      });
+    }
+  };
+
+  const changeActiveSide = () => {
+    setActiveSide((activeSide) => (activeSide === "lhs" ? "rhs" : "lhs"));
+  };
+
+  const handleSubmit = () => {
+    console.log({ data });
+    const { file, prompt, brand } = data;
+    if (!file && !prompt) return;
+    if (!brand) return;
+    fetchResponse();
+    changeActiveSide();
+  };
+
+  const handleDataChange = (target) => {
+    const { name } = target;
+    if (name === "file") {
+      uploadFile(target.files);
+    } else {
+      const { value } = target;
+
+      setData((data) => {
+        const updatedData = { ...data };
+        updatedData[name] = value;
+        return updatedData;
+      });
     }
   };
 
@@ -19,26 +82,36 @@ const App = () => {
       </header>
 
       <main>
-        <div className="lhs-container">
+        <div
+          className={`lhs-container${activeSide === "lhs" ? " active" : ""}`}
+        >
           <div className="file-upload">
             <input
               type="file"
+              name="file"
               onChange={({ target }) => uploadFile(target.files)}
             />
           </div>
 
           <textarea
             id="textprompt"
-            name="textprompt"
+            name="prompt"
             rows="4"
             cols="50"
             placeholder="Please enter your custom prompt."
+            onChange={({ target }) => handleDataChange(target)}
+            value={data.prompt}
           ></textarea>
 
           <div className="dropdowns">
             <div className="customer-literacy">
-              <select name="literacy" id="literacy">
-                <option value="" selected disabled hidden>
+              <select
+                name="literacy"
+                id="literacy"
+                onChange={({ target }) => handleDataChange(target)}
+                value={data.literacy}
+              >
+                <option value="default" disabled hidden>
                   Customer literacy
                 </option>
                 <option value="1">One</option>
@@ -50,8 +123,13 @@ const App = () => {
             </div>
 
             <div className="customer-sentiment">
-              <select name="sentiment" id="sentiment">
-                <option value="" selected disabled hidden>
+              <select
+                name="sentiment"
+                id="sentiment"
+                onChange={({ target }) => handleDataChange(target)}
+                value={data.sentiment}
+              >
+                <option value="default" disabled hidden>
                   Customer sentiment
                 </option>
                 <option value="1">One</option>
@@ -63,8 +141,13 @@ const App = () => {
             </div>
 
             <div className="utterance-length">
-              <select name="length" id="length">
-                <option value="" selected disabled hidden>
+              <select
+                name="length"
+                id="length"
+                onChange={({ target }) => handleDataChange(target)}
+                value={data.length}
+              >
+                <option value="default" disabled hidden>
                   Utterance length
                 </option>
                 <option value="1">Short</option>
@@ -74,8 +157,13 @@ const App = () => {
             </div>
 
             <div className="brand">
-              <select name="brand" id="brand">
-                <option value="" selected disabled hidden>
+              <select
+                name="brand"
+                id="brand"
+                onChange={({ target }) => handleDataChange(target)}
+                value={data.brand}
+              >
+                <option value="default" disabled hidden>
                   Brand
                 </option>
                 <option value="1">Lloyds Bank</option>
@@ -86,12 +174,14 @@ const App = () => {
           </div>
 
           <div className="buttons-container">
-            <button>Submit</button>
-            <button>Reset</button>
+            <button onClick={handleSubmit}>Submit</button>
+            <button onClick={handleReset}>Reset</button>
           </div>
         </div>
 
-        <div className="rhs-container">
+        <div
+          className={`rhs-container${activeSide === "rhs" ? " active" : ""}`}
+        >
           <div className="output-preview"></div>
 
           <div className="buttons-container">
