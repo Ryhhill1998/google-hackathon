@@ -1,9 +1,13 @@
 header {
-  background-color: grey;
+  background-color: var(--primary-theme);
   padding: 1em 1.5em;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
   h1 {
-    color: white;
+    color: var(--background-theme);
     font-weight: var(--font-weight-bold-2);
   }
 }
@@ -19,7 +23,8 @@ main {
   }
 
   .lhs-container {
-    background-color: lightgray;
+    // background-color: lightgray;
+    background-color: var(--background-theme);
     display: flex;
     flex-direction: column;
     gap: 0.5em;
@@ -41,16 +46,18 @@ main {
         flex-basis: 100%;
       }
     }
-
   }
 
   .rhs-container {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
+    background-color: var(--background-theme);
 
     .output-preview {
-      border: solid 1px black;
+      border: solid 2px var(--secondary-theme);
+      background-color: #cedebd;
+      border-radius: var(--border-radius);
       height: 100px;
     }
   }
@@ -67,6 +74,20 @@ main {
       background: none;
       border: solid 1px black;
       padding: 0.75em 0.5em;
+
+      button {
+        background: var(--secondary-theme);
+        border: none;
+        border-radius: var(--border-radius);
+        color: var(--primary-theme);
+        font-weight: var(--font-weight-bold-1);
+        padding: 0.75em 0.5em;
+
+        &:hover {
+          background: var(--primary-theme);
+          color: var(--primary-theme);
+        }
+      }
     }
   }
 }

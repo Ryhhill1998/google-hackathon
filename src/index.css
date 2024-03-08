@@ -4,11 +4,11 @@
 :root {
   /* themes */
   /* change this to your chosen primary theme */
-  --primary-theme: #11ddbb;
+  --primary-theme: #435334;
   /* change this to your chosen secondary theme */
-  --secondary-theme: #00796b;
+  --secondary-theme: #9eb384;
   /* change this to your chosen background theme */
-  /* --background-theme: #252525; */
+  --background-theme: #faf1e4;
 
   /* font sizes - feel free to adjust based on your design */
   --font-size-heading: 1.5rem;
