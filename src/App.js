@@ -79,6 +79,13 @@ const App = () => {
         </div>
 
         <div className="rhs-container">
+          <div className="output-preview"></div>
+
+          <div className="buttons-container">
+            <button>Download</button>
+            <button>Regenerate</button>
+            <button>Restart</button>
+          </div>
         </div>
       </main>
     </div>
