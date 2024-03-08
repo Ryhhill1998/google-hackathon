@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.scss";
 
 const defaultData = {
-  file: null,
+  file: "",
   prompt: "",
   literacy: "default",
   sentiment: "default",
@@ -40,7 +40,7 @@ const App = () => {
     if (files.length) {
       setData((data) => {
         const updatedData = { ...data };
-        updatedData.file = files[0];
+        updatedData.file = files[0].name;
         return updatedData;
       });
     }
@@ -53,7 +53,7 @@ const App = () => {
   const handleSubmit = () => {
     const { file, prompt, brand } = data;
     if (!file && !prompt) return;
-    if (!brand) return;
+    if (brand === "default") return;
     fetchResponse(data);
     changeActiveSide();
   };
