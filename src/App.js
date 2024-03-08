@@ -14,14 +14,14 @@ const App = () => {
   const [data, setData] = useState({ ...defaultData });
   const [activeSide, setActiveSide] = useState("lhs");
 
-  const fetchResponse = async () => {
+  const fetchResponse = async (formData) => {
     try {
       const response = await fetch("http://localhost:8000/backend", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
 
       const responseData = await response.json();
@@ -51,10 +51,10 @@ const App = () => {
 
   const handleSubmit = () => {
     console.log({ data });
-    const { file, prompt, brand } = data;
+    const { file, prompt, brand, literacy, sentiment, length } = data;
     if (!file && !prompt) return;
     if (!brand) return;
-    fetchResponse();
+    fetchResponse({ prompt, brand, literacy, sentiment, length });
     changeActiveSide();
   };
 
@@ -73,6 +73,10 @@ const App = () => {
     }
   };
 
+  const handleRestart = () => {
+    changeActiveSide();
+  };
+
   return (
     <div className="App">
       <header>
@@ -89,6 +93,7 @@ const App = () => {
             <input
               type="file"
               name="file"
+              accept="image/png,.csv"
               onChange={({ target }) => uploadFile(target.files)}
             />
           </div>
@@ -110,6 +115,7 @@ const App = () => {
                 id="literacy"
                 onChange={({ target }) => handleDataChange(target)}
                 value={data.literacy}
+                disabled={activeSide !== "lhs"}
               >
                 <option value="default" disabled hidden>
                   Customer literacy
@@ -128,6 +134,7 @@ const App = () => {
                 id="sentiment"
                 onChange={({ target }) => handleDataChange(target)}
                 value={data.sentiment}
+                disabled={activeSide !== "lhs"}
               >
                 <option value="default" disabled hidden>
                   Customer sentiment
@@ -146,6 +153,7 @@ const App = () => {
                 id="length"
                 onChange={({ target }) => handleDataChange(target)}
                 value={data.length}
+                disabled={activeSide !== "lhs"}
               >
                 <option value="default" disabled hidden>
                   Utterance length
@@ -162,6 +170,7 @@ const App = () => {
                 id="brand"
                 onChange={({ target }) => handleDataChange(target)}
                 value={data.brand}
+                disabled={activeSide !== "lhs"}
               >
                 <option value="default" disabled hidden>
                   Brand
@@ -174,8 +183,12 @@ const App = () => {
           </div>
 
           <div className="buttons-container">
-            <button onClick={handleSubmit}>Submit</button>
-            <button onClick={handleReset}>Reset</button>
+            <button disabled={activeSide !== "lhs"} onClick={handleSubmit}>
+              Submit
+            </button>
+            <button disabled={activeSide !== "lhs"} onClick={handleReset}>
+              Reset
+            </button>
           </div>
         </div>
 
@@ -185,9 +198,11 @@ const App = () => {
           <div className="output-preview"></div>
 
           <div className="buttons-container">
-            <button>Download</button>
-            <button>Regenerate</button>
-            <button>Restart</button>
+            <button disabled={activeSide !== "rhs"}>Download</button>
+            <button disabled={activeSide !== "rhs"}>Regenerate</button>
+            <button disabled={activeSide !== "rhs"} onClick={handleRestart}>
+              Restart
+            </button>
           </div>
         </div>
       </main>
