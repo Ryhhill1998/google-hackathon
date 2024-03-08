@@ -16,7 +16,7 @@ const App = () => {
 
   const fetchResponse = async (formData) => {
     try {
-      const response = await fetch("http://localhost:8000/backend", {
+      const response = await fetch("http://localhost:8000/backend/", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -24,6 +24,9 @@ const App = () => {
         },
         body: JSON.stringify(formData),
       });
+
+      const responseData = response.data();
+      console.log(responseData);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -48,11 +51,10 @@ const App = () => {
   };
 
   const handleSubmit = () => {
-    console.log({ data });
-    const { file, prompt, brand, literacy, sentiment, length } = data;
+    const { file, prompt, brand } = data;
     if (!file && !prompt) return;
     if (!brand) return;
-    fetchResponse({ prompt, brand, literacy, sentiment, length });
+    fetchResponse(data);
     changeActiveSide();
   };
 
