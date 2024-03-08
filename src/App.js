@@ -19,12 +19,16 @@ const App = () => {
       </header>
 
       <main>
-        <div className="file-upload">
-          <input
-            type="file"
-            onChange={({ target }) => uploadFile(target.files)}
-          />
+        <div className="lhs-container">
+          <div className="file-upload">
+            <input
+              type="file"
+              onChange={({ target }) => uploadFile(target.files)}
+            />
+          </div>
         </div>
+
+        <div className="rhs-container"></div>
       </main>
     </div>
   );
