@@ -10,10 +10,12 @@ header {
 
 main {
   display: flex;
+  height: calc(100vh - 61px);
 
   > * {
     flex-basis: 100%;
     padding: 1em;
+    height: 100%;
   }
 
   .lhs-container {
@@ -21,6 +23,28 @@ main {
   }
 
   .rhs-container {
-    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    .output-preview {
+      border: solid 1px black;
+      height: 100px;
+    }
+
+    .buttons-container {
+      display: flex;
+      gap: 0.5em;
+
+      > * {
+        flex-basis: 100%;
+      }
+
+      button {
+        background: none;
+        border: solid 1px black;
+        padding: 0.75em 0.5em;
+      }
+    }
   }
 }
