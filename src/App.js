@@ -19,13 +19,11 @@ const App = () => {
       const response = await fetch("http://localhost:8000/backend", {
         method: "POST",
         headers: {
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-
-      const responseData = await response.json();
-      console.log(responseData);
     } catch (error) {
       console.error("Error:", error);
     }
