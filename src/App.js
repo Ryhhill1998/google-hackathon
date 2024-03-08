@@ -26,9 +26,19 @@ const App = () => {
               onChange={({ target }) => uploadFile(target.files)}
             />
           </div>
+          <form action="/backend">
+            <div className="free-text-prompt">
+              <br></br>
+              <textarea id="textprompt" name="textprompt" rows="4" cols="50">Please enter your custom prompt.</textarea>
+              <br></br>
+              <input type="submit" value="Submit"></input>
+            </div>
+          </form>
+
         </div>
 
-        <div className="rhs-container"></div>
+        <div className="rhs-container">
+        </div>
       </main>
     </div>
   );
