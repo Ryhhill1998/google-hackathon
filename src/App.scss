@@ -12,7 +12,7 @@ main {
   display: flex;
   height: calc(100vh - 61px);
 
-  > * {
+  >* {
     flex-basis: 100%;
     padding: 1em;
     height: 100%;
@@ -20,6 +20,28 @@ main {
 
   .lhs-container {
     background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    .free-text-prompt {
+      padding: 20px 0px;
+
+      textarea {
+        width: 100%;
+      }
+    }
+
+    .dropdowns {
+      display: flex;
+      gap: 0.5em;
+      padding: 20px 0px;
+
+      >* {
+        flex-basis: 100%;
+      }
+    }
+
   }
 
   .rhs-container {
@@ -31,20 +53,20 @@ main {
       border: solid 1px black;
       height: 100px;
     }
+  }
 
-    .buttons-container {
-      display: flex;
-      gap: 0.5em;
+  .buttons-container {
+    display: flex;
+    gap: 0.5em;
 
-      > * {
-        flex-basis: 100%;
-      }
+    >* {
+      flex-basis: 100%;
+    }
 
-      button {
-        background: none;
-        border: solid 1px black;
-        padding: 0.75em 0.5em;
-      }
+    button {
+      background: none;
+      border: solid 1px black;
+      padding: 0.75em 0.5em;
     }
   }
 }
