@@ -28,7 +28,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className="rhs-container"></div>
+        <div className="rhs-container">hello</div>
       </main>
     </div>
   );

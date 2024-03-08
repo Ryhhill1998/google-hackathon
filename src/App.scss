@@ -7,3 +7,20 @@ header {
     font-weight: var(--font-weight-bold-2);
   }
 }
+
+main {
+  display: flex;
+
+  > * {
+    flex-basis: 100%;
+    padding: 1em;
+  }
+
+  .lhs-container {
+    background-color: lightgray;
+  }
+
+  .rhs-container {
+    background-color: lightblue;
+  }
+}
